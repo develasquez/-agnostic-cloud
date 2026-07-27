@@ -6,9 +6,15 @@ on:
     paths:
       - 'docs/**'
       - 'packages/**/src/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/**'
   pull_request:
     paths:
       - 'docs/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/**'
 
 jobs:
   build:
@@ -38,7 +44,7 @@ jobs:
         if: steps.build.outcome == 'success'
         run: |
           echo "Build completed successfully."
-          echo "Note: SC-005 target is under 120 seconds."
+          echo "Note: SC-005 target is under 120 seconds. "
 
       - name: Deploy to GitHub Pages
         if: github.ref == 'refs/heads/main'
