@@ -1,0 +1,43 @@
+{
+  "name": "@agnostic-cloud/nosql",
+  "version": "0.0.0",
+  "description": "Unified NoSQL document database interface for DynamoDB, Firestore, and Cosmos DB",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run",
+    "coverage": "vitest run --coverage",
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "@aws-sdk/client-dynamodb": "^3.500.0",
+    "@aws-sdk/util-dynamodb": "^3.500.0",
+    "@google-cloud/firestore": "^7.0.0",
+    "@azure/cosmos": "^4.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@aws-sdk/client-dynamodb": { "optional": true },
+    "@aws-sdk/util-dynamodb": { "optional": true },
+    "@google-cloud/firestore": { "optional": true },
+    "@azure/cosmos": { "optional": true }
+  },
+  "devDependencies": {
+    "tsup": "^8.0.0",
+    "typescript": "^5.5.0",
+    "vitest": "^2.0.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

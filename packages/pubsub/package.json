@@ -1,0 +1,47 @@
+{
+  "name": "@agnostic-cloud/pubsub",
+  "version": "0.0.0",
+  "description": "Unified pub/sub interface for AWS SNS/SQS, GCP Pub/Sub, and Azure Event Grid/Event Hubs/Service Bus",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run",
+    "coverage": "vitest run --coverage",
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "@aws-sdk/client-sns": "^3.500.0",
+    "@aws-sdk/client-sqs": "^3.500.0",
+    "@google-cloud/pubsub": "^4.0.0",
+    "@azure/event-hubs": "^5.0.0",
+    "@azure/eventgrid": "^4.0.0",
+    "@azure/service-bus": "^7.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@aws-sdk/client-sns": { "optional": true },
+    "@aws-sdk/client-sqs": { "optional": true },
+    "@google-cloud/pubsub": { "optional": true },
+    "@azure/event-hubs": { "optional": true },
+    "@azure/eventgrid": { "optional": true },
+    "@azure/service-bus": { "optional": true }
+  },
+  "devDependencies": {
+    "tsup": "^8.0.0",
+    "typescript": "^5.5.0",
+    "vitest": "^2.0.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

@@ -1,0 +1,44 @@
+[
+  {
+    "name": "@agnostic-cloud/storage",
+    "path": "packages/storage/dist/index.js",
+    "limit": "50 KB",
+    "gzip": true
+  },
+  {
+    "name": "@agnostic-cloud/secrets",
+    "path": "packages/secrets/dist/index.js",
+    "limit": "50 KB",
+    "gzip": true
+  },
+  {
+    "name": "@agnostic-cloud/cache",
+    "path": "packages/cache/dist/index.js",
+    "limit": "50 KB",
+    "gzip": true
+  },
+  {
+    "name": "@agnostic-cloud/kms",
+    "path": "packages/kms/dist/index.js",
+    "limit": "50 KB",
+    "gzip": true
+  },
+  {
+    "name": "@agnostic-cloud/pubsub",
+    "path": "packages/pubsub/dist/index.js",
+    "limit": "50 KB",
+    "gzip": true
+  },
+  {
+    "name": "@agnostic-cloud/nosql",
+    "path": "packages/nosql/dist/index.js",
+    "limit": "50 KB",
+    "gzip": true
+  },
+  {
+    "name": "@agnostic-cloud/migrate",
+    "path": "packages/migrate/dist/index.js",
+    "limit": "50 KB",
+    "gzip": true
+  }
+]

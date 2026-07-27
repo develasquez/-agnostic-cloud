@@ -1,0 +1,54 @@
+{
+  "name": "agnostic-layer",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Unified cloud abstraction layer for AWS, GCP, and Azure",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "test:examples": "vitest run examples/*.test.ts",
+    "lint": "npm run lint --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "changeset": "changeset",
+    "version": "changeset version",
+    "release": "npm run build && changeset publish",
+    "size": "size-limit"
+  },
+  "devDependencies": {
+    "@aws-sdk/client-dynamodb": "^3.1095.0",
+    "@aws-sdk/client-kms": "^3.1095.0",
+    "@aws-sdk/client-s3": "^3.1095.0",
+    "@aws-sdk/client-secrets-manager": "^3.1095.0",
+    "@aws-sdk/client-sns": "^3.1095.0",
+    "@aws-sdk/client-sqs": "^3.1095.0",
+    "@aws-sdk/util-dynamodb": "^3.996.7",
+    "@azure/cosmos": "^4.9.3",
+    "@azure/event-hubs": "^5.12.2",
+    "@azure/eventgrid": "^4.15.0",
+    "@azure/identity": "^4.13.1",
+    "@azure/keyvault-keys": "^4.10.2",
+    "@azure/keyvault-secrets": "^4.11.2",
+    "@azure/service-bus": "^7.9.5",
+    "@azure/storage-blob": "^12.32.0",
+    "@changesets/cli": "^2.27.0",
+    "@google-cloud/firestore": "^7.11.6",
+    "@google-cloud/kms": "^4.5.0",
+    "@google-cloud/pubsub": "^4.11.0",
+    "@google-cloud/secret-manager": "^5.6.0",
+    "@google-cloud/storage": "^7.21.0",
+    "@size-limit/file": "^13.0.1",
+    "@types/node": "^26.1.1",
+    "@vitest/coverage-v8": "^4.1.10",
+    "eslint": "^9.0.0",
+    "ioredis": "^5.11.1",
+    "size-limit": "^12.1.0",
+    "typescript": "^5.5.0",
+    "vitest": "^2.0.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

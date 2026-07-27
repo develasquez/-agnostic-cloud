@@ -1,0 +1,41 @@
+{
+  "name": "@agnostic-cloud/kms",
+  "version": "0.0.0",
+  "description": "Unified key management interface for AWS KMS, GCP Cloud KMS, and Azure Key Vault Keys",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run",
+    "coverage": "vitest run --coverage",
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "@aws-sdk/client-kms": "^3.500.0",
+    "@google-cloud/kms": "^4.0.0",
+    "@azure/keyvault-keys": "^4.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@aws-sdk/client-kms": { "optional": true },
+    "@google-cloud/kms": { "optional": true },
+    "@azure/keyvault-keys": { "optional": true }
+  },
+  "devDependencies": {
+    "tsup": "^8.0.0",
+    "typescript": "^5.5.0",
+    "vitest": "^2.0.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

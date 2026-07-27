@@ -1,0 +1,110 @@
+version: "3.9"
+
+services:
+  # S3-compatible storage
+  minio:
+    image: minio/minio:latest
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    command: server /data --console-address ":9001"
+    volumes:
+      - minio-data:/data
+
+  # GCS-compatible storage
+  fake-gcs-server:
+    image: fsouza/fake-gcs-server:latest
+    ports:
+      - "4443:4443"
+    volumes:
+      - gcs-data:/data
+    command: -scheme http
+
+  # Azure Blob Storage emulator
+  azurite:
+    image: mcr.microsoft.com/azure-storage/azurite:latest
+    ports:
+      - "10000:10000"
+      - "10001:10001"
+      - "10002:10002"
+
+  # Redis (used by all 3 cloud providers)
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+  # GCP Pub/Sub emulator
+  gcloud-pubsub:
+    image: gcr.io/google.com/cloudsdktool/cloud-sdk:emulators
+    ports:
+      - "8085:8085"
+    command: gcloud beta emulators pubsub start --project=test-project --host-port=0.0.0.0:8085
+
+  # DynamoDB local
+  dynamodb-local:
+    image: amazon/dynamodb-local:latest
+    ports:
+      - "8000:8000"
+    command: -jar DynamoDBLocal.jar -sharedDb
+
+  # Firestore emulator
+  firestore-emulator:
+    image: mtlynch/firestore-emulator:latest
+    ports:
+      - "8086:8080"
+    environment:
+      FIRESTORE_PROJECT_ID: test-project
+
+  # AWS KMS emulator
+  local-kms:
+    image: nsmithuk/local-kms:latest
+    ports:
+      - "8099:8080"
+
+  # AWS Secrets Manager (via Nimbus - also provides S3/SQS/DynamoDB on :4566)
+  nimbus:
+    image: ghcr.io/nimbus-local/nimbus:latest
+    ports:
+      - "4566:4566"
+    environment:
+      AWS_DEFAULT_REGION: us-east-1
+      SERVICES: secretsmanager,sqs,sns
+
+  # GCP Secret Manager emulator
+  gcp-secret-manager:
+    image: ghcr.io/blackwell-systems/gcp-secret-manager-emulator-dual:latest
+    ports:
+      - "9090:9090"
+      - "8087:8080"
+
+  # Azure Key Vault emulator
+  azure-keyvault:
+    image: jamesgoulddev/azure-keyvault-emulator:latest-arm
+    ports:
+      - "4997:4997"
+    volumes:
+      - /Users/felipe/.opencode/azkv-certs:/certs
+    environment:
+      Persist: "false"
+
+  # GCP KMS emulator
+  gcp-kms:
+    image: ghcr.io/blackwell-systems/gcp-kms-emulator-dual:latest
+    ports:
+      - "9091:9090"
+      - "8088:8080"
+
+  # Cosmos DB emulator (vNext, ARM64 native)
+  cosmos-emulator:
+    image: mcr.microsoft.com/cosmosdb/linux/azure-cosmos-emulator:vnext-latest
+    ports:
+      - "1234:1234"
+      - "8081:8081"
+
+volumes:
+  minio-data:
+  gcs-data:

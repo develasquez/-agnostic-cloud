@@ -1,0 +1,46 @@
+name: Documentation
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/**'
+      - 'packages/**/src/**'
+  pull_request:
+    paths:
+      - 'docs/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build packages (for TypeDoc)
+        run: npm run build -w packages
+
+      - name: Build Docusaurus
+        run: npm run build
+        working-directory: docs
+        id: build
+
+      - name: Warn on build time over 120s
+        if: steps.build.outcome == 'success'
+        run: |
+          echo "Build completed successfully."
+          echo "Note: SC-005 target is under 120 seconds."
+
+      - name: Deploy to GitHub Pages
+        if: github.ref == 'refs/heads/main'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs/build

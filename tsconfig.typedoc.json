@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "types": ["node"]
+  },
+  "include": [
+    "packages/storage/src",
+    "packages/secrets/src",
+    "packages/cache/src",
+    "packages/kms/src",
+    "packages/pubsub/src",
+    "packages/nosql/src",
+    "packages/migrate/src"
+  ]
+}
