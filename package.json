@@ -2,7 +2,7 @@
   "name": "agnostic-layer",
   "private": true,
   "version": "0.0.0",
-  "description": "Unified cloud abstraction layer for AWS, GCP, and Azure",
+  "description": "Unified cloud abstraction layer for AWS, GCP, and Azure ",
   "workspaces": [
     "packages/*"
   ],
