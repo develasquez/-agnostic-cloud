@@ -18,11 +18,13 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
 
-      - name: Install dependencies
-        run: npm ci
+      - name: Install dependencies 
+        run: |
+          npm config set legacy-peer-deps true
+          npm ci
 
       - name: Build packages (for TypeDoc)
         run: npm run build -w packages
