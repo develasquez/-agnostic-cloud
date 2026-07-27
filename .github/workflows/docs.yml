@@ -30,6 +30,10 @@ jobs:
       - name: Install dependencies 
         run: npm install --no-audit --no-fund --prefer-offline
 
+      - name: Install docs dependencies
+        run: npm install --no-audit --no-fund
+        working-directory: docs
+
       - name: Build packages (for TypeDoc)
         run: npm run build -w packages
 
