@@ -8,7 +8,7 @@ const config: Config = {
   favicon: 'img/favicon.ico',
 
   url: 'https://agnostic-cloud.github.io',
-  baseUrl: '/agnostic-layer/',
+  baseUrl: '/-agnostic-cloud/',
 
   organizationName: 'agnostic-cloud',
   projectName: 'agnostic-layer',
