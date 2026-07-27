@@ -21,7 +21,7 @@ function HomepageHeader() {
         <div className={styles.buttons}>
           <Link
             className="button button--secondary button--lg"
-            to="/agnostic-layer/docs/next/quickstart">
+            to="/-agnostic-cloud/docs/next/quickstart">
             Get Started in 5 Minutes
           </Link>
         </div>

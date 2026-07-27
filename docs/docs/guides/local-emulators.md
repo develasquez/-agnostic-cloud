@@ -52,4 +52,4 @@ npm run test -w packages/storage
 
 ## Troubleshooting
 
-See the [docker-compose.yml](https://github.com/agnostic-cloud/agnostic-layer/blob/main/docker-compose.yml) for exact service configurations.
+See the [docker-compose.yml](https://github.com/agnostic-cloud/-agnostic-cloud/blob/main/docker-compose.yml) for exact service configurations.

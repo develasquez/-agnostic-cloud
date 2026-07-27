@@ -67,7 +67,7 @@ console.log(user)`,
 
 ## API Reference
 
-See the [auto-generated API reference](/agnostic-layer/docs/next/api/@agnostic-cloud/nosql) for full type signatures.
+See the [auto-generated API reference](/-agnostic-cloud/docs/next/api/@agnostic-cloud/nosql) for full type signatures.
 
 ## Error Handling
 

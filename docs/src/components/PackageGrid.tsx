@@ -14,7 +14,7 @@ export default function PackageGrid(): React.ReactElement {
   return (
     <div className="package-grid">
       {PACKAGES.map((pkg) => (
-        <a key={pkg.name} href={`/agnostic-layer/docs/next/packages/${pkg.name.split('/').pop()}`} className="package-card">
+        <a key={pkg.name} href={`/-agnostic-cloud/docs/next/packages/${pkg.name.split('/').pop()}`} className="package-card">
           <h3>{pkg.name}</h3>
           <p>{pkg.description}</p>
           <div className="cloud-badges">

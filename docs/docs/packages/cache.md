@@ -64,7 +64,7 @@ console.log(value)`,
 
 ## API Reference
 
-See the [auto-generated API reference](/agnostic-layer/docs/next/api/@agnostic-cloud/cache) for full type signatures.
+See the [auto-generated API reference](/-agnostic-cloud/docs/next/api/@agnostic-cloud/cache) for full type signatures.
 
 ## Error Handling
 

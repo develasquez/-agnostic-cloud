@@ -40,4 +40,4 @@ console.log(result.body.toString()) // 'Hello World!'
 
 Change `cloud: 'aws'` to `cloud: 'gcp'` — the same code works with Google Cloud Storage.
 
-[See all packages →](/agnostic-layer/docs/next/packages/storage)
+[See all packages →](/-agnostic-cloud/docs/next/packages/storage)

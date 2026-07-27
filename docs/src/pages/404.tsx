@@ -8,7 +8,7 @@ export default function NotFound(): ReactNode {
       <main className="container" style={{padding: '4rem 0', textAlign: 'center'}}>
         <h1>404</h1>
         <p>The page you are looking for does not exist.</p>
-        <Link to="/agnostic-layer/">
+        <Link to="/-agnostic-cloud/">
           Return Home
         </Link>
       </main>

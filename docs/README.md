@@ -18,7 +18,7 @@ npm install
 npm start
 ```
 
-This starts the dev server at `http://localhost:3000/agnostic-layer/`.
+This starts the dev server at `http://localhost:3000/-agnostic-cloud/`.
 
 ## Build
 

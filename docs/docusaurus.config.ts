@@ -7,11 +7,11 @@ const config: Config = {
   tagline: 'Unified cloud abstraction layer for AWS, GCP, and Azure',
   favicon: 'img/favicon.ico',
 
-  url: 'https://agnostic-cloud.github.io',
+  url: 'https://develasquez.github.io',
   baseUrl: '/-agnostic-cloud/',
 
-  organizationName: 'agnostic-cloud',
-  projectName: 'agnostic-layer',
+  organizationName: 'develasquez',
+  projectName: '-agnostic-cloud',
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -27,7 +27,7 @@ const config: Config = {
       {
         docs: {
           sidebarPath: './sidebars.ts',
-          editUrl: 'https://github.com/agnostic-cloud/agnostic-layer/edit/main/docs/',
+          editUrl: 'https://github.com/develasquez/-agnostic-cloud/edit/main/docs/',
           lastVersion: 'current',
           versions: {
             current: {
