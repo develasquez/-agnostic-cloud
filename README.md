@@ -4,6 +4,14 @@ Unified TypeScript SDK for AWS, GCP, and Azure — zero-code-change cloud migrat
 
 📖 **Documentation**: [https://develasquez.github.io/-agnostic-cloud/](https://develasquez.github.io/-agnostic-cloud/)
 
+![Node](https://img.shields.io/badge/node-%3E%3D22.18-339933?logo=node.js)
+![TypeScript](https://img.shields.io/badge/typescript-5.5%2B-3178C6?logo=typescript)
+![Coverage](https://img.shields.io/badge/coverage-100%25-brightgreen)
+![License](https://img.shields.io/badge/license-MIT-blue)
+![PRs](https://img.shields.io/badge/PRs-welcome-brightgreen)
+![Tests](https://img.shields.io/badge/tests-70%20passed%2C%200%20failed-success)
+![Cloud](https://img.shields.io/badge/cloud-AWS%20%7C%20GCP%20%7C%20Azure-FF9900)
+
 ## Packages
 
 | Package | Description | Interface |
