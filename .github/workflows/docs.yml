@@ -28,9 +28,7 @@ jobs:
           cache: npm
 
       - name: Install dependencies 
-        run: |
-          npm config set legacy-peer-deps true
-          npm install --no-audit --no-fund
+        run: npm install --no-audit --no-fund --prefer-offline
 
       - name: Build packages (for TypeDoc)
         run: npm run build -w packages
