@@ -30,7 +30,7 @@ jobs:
       - name: Install dependencies 
         run: |
           npm config set legacy-peer-deps true
-          npm ci
+          npm install --no-audit --no-fund
 
       - name: Build packages (for TypeDoc)
         run: npm run build -w packages
