@@ -1,14 +1,20 @@
 {
   "name": "@agnostic-cloud/nosql",
-  "version": "0.0.0",
+  "version": "0.1.1",
   "description": "Unified NoSQL document database interface for DynamoDB, Firestore, and Cosmos DB",
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     }

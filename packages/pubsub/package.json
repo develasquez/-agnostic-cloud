@@ -1,14 +1,20 @@
 {
   "name": "@agnostic-cloud/pubsub",
-  "version": "0.0.0",
+  "version": "0.1.1",
   "description": "Unified pub/sub interface for AWS SNS/SQS, GCP Pub/Sub, and Azure Event Grid/Event Hubs/Service Bus",
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     }
