@@ -168,9 +168,9 @@ HGq6/pzd9AJzylv1kGDbtZjRCeUc/aEzTIVapkl4HZ4hy3j5apE0
 
     const objects: ObjectSummary[] = (response.listObjects.objects ?? []).map(obj => ({
       key: obj.name,
-      size: obj.size,
+      size: obj.size ?? 0,
       etag: obj.md5?.replace(/"/g, '') ?? '',
-      lastModified: obj.timeCreated!,
+      lastModified: obj.timeCreated ? new Date(obj.timeCreated) : new Date(),
     }))
 
     return {

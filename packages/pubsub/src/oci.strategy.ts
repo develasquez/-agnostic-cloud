@@ -104,7 +104,7 @@ HGq6/pzd9AJzylv1kGDbtZjRCeUc/aEzTIVapkl4HZ4hy3j5apE0
       putMessagesDetails: {
         messages: [{
           content,
-          metadata: message.attributes ? { customProperties: message.attributes } : undefined,
+          metadata: message.attributes ? { channelId: '', customProperties: message.attributes } : undefined,
         }]
       }
     }), this.retryConfig)

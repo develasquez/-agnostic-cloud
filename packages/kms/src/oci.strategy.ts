@@ -113,11 +113,10 @@ HGq6/pzd9AJzylv1kGDbtZjRCeUc/aEzTIVapkl4HZ4hy3j5apE0
 
   async createKey(alias: string, options?: CreateKeyOptions): Promise<KeyMetadata> {
     const result = await withRetry(() => this.mgmtClient.createKey({
-      compartmentId: this.compartmentId,
       createKeyDetails: {
         compartmentId: this.compartmentId,
         displayName: alias,
-        keyShape: { algorithm: 'AES', length: 32 },
+        keyShape: { algorithm: oci.keymanagement.models.KeyShape.Algorithm.Aes, length: 32 },
         protectionMode: 'SOFTWARE' as any,
       }
     }), this.retryConfig)
