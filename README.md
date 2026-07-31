@@ -1,6 +1,8 @@
 # @agnostic-cloud
 
-Unified TypeScript SDK for AWS, GCP, and Azure — zero-code-change cloud migration by swapping environment variables.
+Unified TypeScript SDK for AWS, GCP, Azure, and OCI — zero-code-change cloud migration by swapping environment variables.
+
+Briefly: Write once, run on any cloud provider!
 
 📖 **Documentation**: [https://develasquez.github.io/-agnostic-cloud/](https://develasquez.github.io/-agnostic-cloud/)
 
@@ -9,19 +11,19 @@ Unified TypeScript SDK for AWS, GCP, and Azure — zero-code-change cloud migrat
 ![Coverage](https://img.shields.io/badge/coverage-100%25-brightgreen)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 ![PRs](https://img.shields.io/badge/PRs-welcome-brightgreen)
-![Tests](https://img.shields.io/badge/tests-70%20passed%2C%200%20failed-success)
-![Cloud](https://img.shields.io/badge/cloud-AWS%20%7C%20GCP%20%7C%20Azure-FF9900)
+![Tests](https://img.shields.io/badge/tests-79%20passed%2C%201%20skipped-success)
+![Cloud](https://img.shields.io/badge/cloud-AWS%20%7C%20GCP%20%7C%20Azure%20%7C%20OCI-FF9900)
 
 ## Packages
 
 | Package | Description | Interface |
 |---------|-------------|-----------|
-| `@agnostic-cloud/storage` | Object storage | `StorageStrategy` |
-| `@agnostic-cloud/secrets` | Secrets management | `SecretsStrategy` |
-| `@agnostic-cloud/cache` | Redis cache | `CacheStrategy` |
-| `@agnostic-cloud/kms` | Key management | `KmsStrategy` |
-| `@agnostic-cloud/pubsub` | Pub/sub messaging | `PubSubStrategy` |
-| `@agnostic-cloud/nosql` | NoSQL document DB | `NoSqlStrategy` |
+| `@agnostic-cloud/storage` | Object storage (S3, GCS, Blob, OCI Object Storage) | `StorageStrategy` |
+| `@agnostic-cloud/secrets` | Secrets management (AWS, GCP, Azure Key Vault) | `SecretsStrategy` |
+| `@agnostic-cloud/cache` | Redis cache (AWS, GCP, Azure, OCI) | `CacheStrategy` |
+| `@agnostic-cloud/kms` | Key management (AWS, GCP, Azure, OCI Vault Keys) | `KmsStrategy` |
+| `@agnostic-cloud/pubsub` | Pub/sub messaging & queues (AWS, GCP, Azure, OCI Queue) | `PubSubStrategy` |
+| `@agnostic-cloud/nosql` | NoSQL document DB (DynamoDB, Firestore, Cosmos DB) | `NoSqlStrategy` |
 | `@agnostic-cloud/migrate` | Cross-provider copy & verify | `copyObject` / `verifyIntegrity` |
 
 ## Usage
@@ -30,11 +32,13 @@ Unified TypeScript SDK for AWS, GCP, and Azure — zero-code-change cloud migrat
 import { createStorage } from '@agnostic-cloud/storage'
 
 const storage = createStorage({
-  cloud: 'aws',           // 'aws' | 'gcp' | 'azure'
-  region: 'us-east-1',
+  cloud: 'oci',           // 'aws' | 'gcp' | 'azure' | 'oci'
+  region: 'us-ashburn-1',
   config: {               // passthrough to provider SDK
-    maxRetries: 5,
-    baseDelayMs: 200,
+    tenancy: process.env.OCI_TENANCY,
+    user: process.env.OCI_USER,
+    fingerprint: process.env.OCI_FINGERPRINT,
+    privateKey: process.env.OCI_PRIVATE_KEY,
   },
 })
 
@@ -42,7 +46,7 @@ await storage.putObject('my-bucket', 'hello.txt', 'Hello, world!')
 const result = await storage.getObject('my-bucket', 'hello.txt')
 ```
 
-Change `cloud` to `'gcp'` or `'azure'` — no other code changes needed.
+Change `cloud` to `'aws'`, `'gcp'`, or `'azure'` — no other code changes needed.
 
 ## Retry
 
@@ -83,12 +87,12 @@ All provider SDKs are declared as **optional peer dependencies** in `@agnostic-c
 
 | Package | Cloud Provider | Required SDK Package | Tested Version |
 |---|---|---|---|
-| `@agnostic-cloud/storage` | AWS<br/>GCP<br/>Azure | `@aws-sdk/client-s3`<br/>`@google-cloud/storage`<br/>`@azure/storage-blob`, `@azure/identity` | `^3.1095.0`<br/>`^7.21.0`<br/>`^12.32.0`, `^4.13.1` |
+| `@agnostic-cloud/storage` | AWS<br/>GCP<br/>Azure<br/>OCI | `@aws-sdk/client-s3`<br/>`@google-cloud/storage`<br/>`@azure/storage-blob`, `@azure/identity`<br/>`oci-sdk` | `^3.1095.0`<br/>`^7.21.0`<br/>`^12.32.0`, `^4.13.1`<br/>`^2.137.0` |
 | `@agnostic-cloud/secrets` | AWS<br/>GCP<br/>Azure | `@aws-sdk/client-secrets-manager`<br/>`@google-cloud/secret-manager`<br/>`@azure/keyvault-secrets`, `@azure/identity` | `^3.1095.0`<br/>`^5.6.0`<br/>`^4.11.2`, `^4.13.1` |
-| `@agnostic-cloud/cache` | AWS / GCP / Azure | `ioredis` | `^5.11.1` |
-| `@agnostic-cloud/kms` | AWS<br/>GCP<br/>Azure | `@aws-sdk/client-kms`<br/>`@google-cloud/kms`<br/>`@azure/keyvault-keys`, `@azure/identity` | `^3.1095.0`<br/>`^4.5.0`<br/>`^4.10.2`, `^4.13.1` |
-| `@agnostic-cloud/pubsub` | AWS<br/>GCP<br/>Azure | `@aws-sdk/client-sns`, `@aws-sdk/client-sqs`<br/>`@google-cloud/pubsub`<br/>`@azure/service-bus`, `@azure/eventgrid`, `@azure/event-hubs`, `@azure/identity` | `^3.1095.0`<br/>`^4.11.0`<br/>`^7.9.5`, `^4.15.0`, `^5.12.2`, `^4.13.1` |
-| `@agnostic-cloud/nosql` | AWS<br/>GCP<br/>Azure | `@aws-sdk/client-dynamodb`, `@aws-sdk/util-dynamodb`<br/>`@google-cloud/firestore`<br/>`@azure/cosmos`, `@azure/identity` | `^3.1095.0`, `^3.996.7`<br/>`^7.11.6`<br/>`^4.9.3`, `^4.13.1` |
+| `@agnostic-cloud/cache` | AWS / GCP / Azure / OCI | `ioredis` | `^5.11.1` |
+| `@agnostic-cloud/kms` | AWS<br/>GCP<br/>Azure<br/>OCI | `@aws-sdk/client-kms`<br/>`@google-cloud/kms`<br/>`@azure/keyvault-keys`, `@azure/identity`<br/>`oci-sdk` | `^3.1095.0`<br/>`^4.5.0`<br/>`^4.10.2`, `^4.13.1`<br/>`^2.137.0` |
+| `@agnostic-cloud/pubsub` | AWS<br/>GCP<br/>Azure<br/>OCI | `@aws-sdk/client-sns`, `@aws-sdk/client-sqs`<br/>`@google-cloud/pubsub`<br/>`@azure/service-bus`, `@azure/eventgrid`, `@azure/event-hubs`, `@azure/identity`<br/>`oci-sdk` | `^3.1095.0`<br/>`^4.11.0`<br/>`^7.9.5`, `^4.15.0`, `^5.12.2`, `^4.13.1`<br/>`^2.137.0` |
+| `@agnostic-cloud/nosql` | AWS<br/>GCP<br/>Azure<br/>OCI | `@aws-sdk/client-dynamodb`, `@aws-sdk/util-dynamodb`<br/>`@google-cloud/firestore`<br/>`@azure/cosmos`, `@azure/identity`<br/>*Unsupported (throws NotImplementedError)* | `^3.1095.0`, `^3.996.7`<br/>`^7.11.6`<br/>`^4.9.3`, `^4.13.1`<br/>N/A |
 | `@agnostic-cloud/migrate` | AWS<br/>GCP<br/>Azure | `@aws-sdk/client-s3`<br/>`@google-cloud/storage`<br/>`@azure/storage-blob`, `@azure/identity` | `^3.1095.0`<br/>`^7.21.0`<br/>`^12.32.0`, `^4.13.1` |
 
 ## Requirements
