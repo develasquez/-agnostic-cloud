@@ -8,6 +8,16 @@ Unified object storage interface for AWS S3, Google Cloud Storage, and Azure Blo
 npm install @agnostic-cloud/storage
 ```
 
+> **Note on Peer Dependencies**: Provider SDKs are optional peer dependencies. You only need to install the SDK for the cloud provider(s) you use.
+
+### Supported Cloud Provider SDK Versions
+
+| Cloud Provider | Required SDK Package | Current / Tested Version | Installation Command |
+|---|---|---|---|
+| **AWS** | `@aws-sdk/client-s3` | `^3.1095.0` | `npm install @aws-sdk/client-s3` |
+| **GCP** | `@google-cloud/storage` | `^7.21.0` | `npm install @google-cloud/storage` |
+| **Azure** | `@azure/storage-blob`<br/>`@azure/identity` | `^12.32.0`<br/>`^4.13.1` | `npm install @azure/storage-blob @azure/identity` |
+
 ## Usage
 
 ```typescript

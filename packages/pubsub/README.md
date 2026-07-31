@@ -8,6 +8,16 @@ Unified pub/sub messaging for AWS SNS/SQS, GCP Pub/Sub, and Azure Service Bus.
 npm install @agnostic-cloud/pubsub
 ```
 
+> **Note on Peer Dependencies**: Provider SDKs are optional peer dependencies. You only need to install the SDK for the cloud provider(s) you use.
+
+### Supported Cloud Provider SDK Versions
+
+| Cloud Provider | Required SDK Package | Current / Tested Version | Installation Command |
+|---|---|---|---|
+| **AWS** | `@aws-sdk/client-sns`<br/>`@aws-sdk/client-sqs` | `^3.1095.0`<br/>`^3.1095.0` | `npm install @aws-sdk/client-sns @aws-sdk/client-sqs` |
+| **GCP** | `@google-cloud/pubsub` | `^4.11.0` | `npm install @google-cloud/pubsub` |
+| **Azure** | `@azure/service-bus`<br/>`@azure/eventgrid`<br/>`@azure/event-hubs`<br/>`@azure/identity` | `^7.9.5`<br/>`^4.15.0`<br/>`^5.12.2`<br/>`^4.13.1` | `npm install @azure/service-bus @azure/eventgrid @azure/event-hubs @azure/identity` |
+
 ## Usage
 
 ```typescript

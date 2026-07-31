@@ -1,6 +1,6 @@
 {
   "name": "@agnostic-cloud/migrate",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Multi-cloud migration utilities for copying data between providers and verifying integrity",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -12,14 +12,13 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-  "publishConfig": {
-    "access": "public"
-  },
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "test": "vitest run",
@@ -27,7 +26,27 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@agnostic-cloud/storage": "*"
+    "@agnostic-cloud/storage": "^0.1.2"
+  },
+  "peerDependencies": {
+    "@aws-sdk/client-s3": "^3.1095.0",
+    "@azure/identity": "^4.13.1",
+    "@azure/storage-blob": "^12.32.0",
+    "@google-cloud/storage": "^7.21.0"
+  },
+  "peerDependenciesMeta": {
+    "@aws-sdk/client-s3": {
+      "optional": true
+    },
+    "@azure/identity": {
+      "optional": true
+    },
+    "@azure/storage-blob": {
+      "optional": true
+    },
+    "@google-cloud/storage": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "tsup": "^8.0.0",

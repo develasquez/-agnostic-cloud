@@ -8,6 +8,16 @@ Unified NoSQL document database interface for DynamoDB, Firestore, and Cosmos DB
 npm install @agnostic-cloud/nosql
 ```
 
+> **Note on Peer Dependencies**: Provider SDKs are optional peer dependencies. You only need to install the SDK for the cloud provider(s) you use.
+
+### Supported Cloud Provider SDK Versions
+
+| Cloud Provider | Required SDK Package | Current / Tested Version | Installation Command |
+|---|---|---|---|
+| **AWS** | `@aws-sdk/client-dynamodb`<br/>`@aws-sdk/util-dynamodb` | `^3.1095.0`<br/>`^3.996.7` | `npm install @aws-sdk/client-dynamodb @aws-sdk/util-dynamodb` |
+| **GCP** | `@google-cloud/firestore` | `^7.11.6` | `npm install @google-cloud/firestore` |
+| **Azure** | `@azure/cosmos`<br/>`@azure/identity` | `^4.9.3`<br/>`^4.13.1` | `npm install @azure/cosmos @azure/identity` |
+
 ## Usage
 
 ```typescript

@@ -8,6 +8,14 @@ Unified cache interface for ElastiCache Redis, Memorystore, and Azure Cache for 
 npm install @agnostic-cloud/cache
 ```
 
+> **Note on Peer Dependencies**: Provider SDKs are optional peer dependencies. You only need to install `ioredis` for Redis access across AWS ElastiCache, GCP Memorystore, or Azure Cache for Redis.
+
+### Supported Cloud Provider SDK Versions
+
+| Cloud Provider | Required SDK Package | Current / Tested Version | Installation Command |
+|---|---|---|---|
+| **AWS / GCP / Azure** | `ioredis` | `^5.11.1` | `npm install ioredis` |
+
 ## Usage
 
 ```typescript

@@ -15,10 +15,15 @@ Unified secrets management interface for AWS Secrets Manager, GCP Secret Manager
 npm install @agnostic-cloud/secrets
 ```
 
-Provider SDKs:
-- AWS: `npm install @aws-sdk/client-secrets-manager`
-- GCP: `npm install @google-cloud/secret-manager`
-- Azure: `npm install @azure/keyvault-secrets @azure/identity`
+> **Note on Peer Dependencies**: Cloud provider SDKs are optional peer dependencies. You only need to install the SDK for the cloud provider(s) you use.
+
+### Supported Cloud Provider SDK Versions
+
+| Cloud Provider | Required SDK Package | Current / Tested Version | Installation Command |
+|---|---|---|---|
+| **AWS** | `@aws-sdk/client-secrets-manager` | `^3.1095.0` | `npm install @aws-sdk/client-secrets-manager` |
+| **GCP** | `@google-cloud/secret-manager` | `^5.6.0` | `npm install @google-cloud/secret-manager` |
+| **Azure** | `@azure/keyvault-secrets`<br/>`@azure/identity` | `^4.11.2`<br/>`^4.13.1` | `npm install @azure/keyvault-secrets @azure/identity` |
 
 ## Factory Function
 

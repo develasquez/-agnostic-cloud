@@ -1,6 +1,6 @@
 {
   "name": "@agnostic-cloud/storage",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Unified object storage interface for S3, GCS, and Azure Blob Storage",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -12,14 +12,13 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-  "publishConfig": {
-    "access": "public"
-  },
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "test": "vitest run",
@@ -27,16 +26,24 @@
     "typecheck": "tsc --noEmit"
   },
   "peerDependencies": {
-    "@aws-sdk/client-s3": "^3.500.0",
-    "@google-cloud/storage": "^7.0.0",
-    "@azure/storage-blob": "^12.0.0",
-    "@azure/identity": "^4.0.0"
+    "@aws-sdk/client-s3": "^3.1095.0",
+    "@azure/identity": "^4.13.1",
+    "@azure/storage-blob": "^12.32.0",
+    "@google-cloud/storage": "^7.21.0"
   },
   "peerDependenciesMeta": {
-    "@aws-sdk/client-s3": { "optional": true },
-    "@google-cloud/storage": { "optional": true },
-    "@azure/storage-blob": { "optional": true },
-    "@azure/identity": { "optional": true }
+    "@aws-sdk/client-s3": {
+      "optional": true
+    },
+    "@azure/identity": {
+      "optional": true
+    },
+    "@azure/storage-blob": {
+      "optional": true
+    },
+    "@google-cloud/storage": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "tsup": "^8.0.0",

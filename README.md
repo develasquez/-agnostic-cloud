@@ -77,8 +77,22 @@ npm run build --workspaces
 npm test
 ```
 
+## Provider SDK Requirements & Versions
+
+All provider SDKs are declared as **optional peer dependencies** in `@agnostic-cloud/*`. You only need to install the provider SDKs for the cloud services you actually use.
+
+| Package | Cloud Provider | Required SDK Package | Tested Version |
+|---|---|---|---|
+| `@agnostic-cloud/storage` | AWS<br/>GCP<br/>Azure | `@aws-sdk/client-s3`<br/>`@google-cloud/storage`<br/>`@azure/storage-blob`, `@azure/identity` | `^3.1095.0`<br/>`^7.21.0`<br/>`^12.32.0`, `^4.13.1` |
+| `@agnostic-cloud/secrets` | AWS<br/>GCP<br/>Azure | `@aws-sdk/client-secrets-manager`<br/>`@google-cloud/secret-manager`<br/>`@azure/keyvault-secrets`, `@azure/identity` | `^3.1095.0`<br/>`^5.6.0`<br/>`^4.11.2`, `^4.13.1` |
+| `@agnostic-cloud/cache` | AWS / GCP / Azure | `ioredis` | `^5.11.1` |
+| `@agnostic-cloud/kms` | AWS<br/>GCP<br/>Azure | `@aws-sdk/client-kms`<br/>`@google-cloud/kms`<br/>`@azure/keyvault-keys`, `@azure/identity` | `^3.1095.0`<br/>`^4.5.0`<br/>`^4.10.2`, `^4.13.1` |
+| `@agnostic-cloud/pubsub` | AWS<br/>GCP<br/>Azure | `@aws-sdk/client-sns`, `@aws-sdk/client-sqs`<br/>`@google-cloud/pubsub`<br/>`@azure/service-bus`, `@azure/eventgrid`, `@azure/event-hubs`, `@azure/identity` | `^3.1095.0`<br/>`^4.11.0`<br/>`^7.9.5`, `^4.15.0`, `^5.12.2`, `^4.13.1` |
+| `@agnostic-cloud/nosql` | AWS<br/>GCP<br/>Azure | `@aws-sdk/client-dynamodb`, `@aws-sdk/util-dynamodb`<br/>`@google-cloud/firestore`<br/>`@azure/cosmos`, `@azure/identity` | `^3.1095.0`, `^3.996.7`<br/>`^7.11.6`<br/>`^4.9.3`, `^4.13.1` |
+| `@agnostic-cloud/migrate` | AWS<br/>GCP<br/>Azure | `@aws-sdk/client-s3`<br/>`@google-cloud/storage`<br/>`@azure/storage-blob`, `@azure/identity` | `^3.1095.0`<br/>`^7.21.0`<br/>`^12.32.0`, `^4.13.1` |
+
 ## Requirements
 
-- Node.js >= 18
+- Node.js >= 22.18
 - Provider SDKs are optional peer dependencies (install only those you use)
 - Tests use emulators (see `docker-compose.yml`)

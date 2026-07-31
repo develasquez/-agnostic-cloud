@@ -15,10 +15,15 @@ Unified key management and encryption interface for AWS KMS, GCP Cloud KMS, and 
 npm install @agnostic-cloud/kms
 ```
 
-Provider SDKs:
-- AWS: `npm install @aws-sdk/client-kms`
-- GCP: `npm install @google-cloud/kms`
-- Azure: `npm install @azure/keyvault-keys @azure/identity`
+> **Note on Peer Dependencies**: Cloud provider SDKs are optional peer dependencies. You only need to install the SDK for the cloud provider(s) you use.
+
+### Supported Cloud Provider SDK Versions
+
+| Cloud Provider | Required SDK Package | Current / Tested Version | Installation Command |
+|---|---|---|---|
+| **AWS** | `@aws-sdk/client-kms` | `^3.1095.0` | `npm install @aws-sdk/client-kms` |
+| **GCP** | `@google-cloud/kms` | `^4.5.0` | `npm install @google-cloud/kms` |
+| **Azure** | `@azure/keyvault-keys`<br/>`@azure/identity` | `^4.10.2`<br/>`^4.13.1` | `npm install @azure/keyvault-keys @azure/identity` |
 
 ## Factory Function
 
