@@ -32,7 +32,8 @@
     "@azure/eventgrid": "^4.15.0",
     "@azure/identity": "^4.13.1",
     "@azure/service-bus": "^7.9.5",
-    "@google-cloud/pubsub": "^4.11.0"
+    "@google-cloud/pubsub": "^4.11.0",
+    "oci-sdk": "^2.137.0"
   },
   "peerDependenciesMeta": {
     "@aws-sdk/client-sns": {
@@ -54,6 +55,9 @@
       "optional": true
     },
     "@google-cloud/pubsub": {
+      "optional": true
+    },
+    "oci-sdk": {
       "optional": true
     }
   },

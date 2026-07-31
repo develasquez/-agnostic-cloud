@@ -1,16 +1,17 @@
 import { describe, it, expect } from 'vitest'
 import type { SecretsConfig } from '../src/config.js'
+import { getAwsEndpoint, getGcpEndpoint, getAzureEndpoint, FakeTokenCredential } from '../../test-helpers/src/index.js'
 
 const SECRET_NAME = `test-secret-${Date.now()}`
 
-describe.runIf(process.env.AWS_SECRETS_ENDPOINT)('secrets e2e with nimbus (aws)', () => {
+describe('secrets e2e with floci (aws)', () => {
   it('should create and retrieve secrets via createSecrets', async () => {
     const { createSecrets } = await import('../src/index.js')
     const config: SecretsConfig = {
       cloud: 'aws',
       region: 'us-east-1',
       config: {
-        endpoint: process.env.AWS_SECRETS_ENDPOINT,
+        endpoint: process.env.AWS_SECRETS_ENDPOINT || getAwsEndpoint(),
         credentials: { accessKeyId: 'fake', secretAccessKey: 'fake' },
       },
     }
@@ -22,15 +23,18 @@ describe.runIf(process.env.AWS_SECRETS_ENDPOINT)('secrets e2e with nimbus (aws)'
   })
 })
 
-describe.runIf(process.env.GCP_SECRETS_PORT)('secrets e2e with gcp-emulator', () => {
+describe('secrets e2e with floci-gcp', () => {
   it('should create and retrieve secrets via createSecrets', async () => {
     const { createSecrets } = await import('../src/index.js')
     const grpcJs = await import('@grpc/grpc-js')
+    
+    // Parse floci-gcp host and port
+    const gcpUrl = new URL(process.env.GCP_EMULATOR_ENDPOINT || getGcpEndpoint())
     const config: SecretsConfig = {
       cloud: 'gcp',
       config: {
-        servicePath: 'localhost',
-        port: Number(process.env.GCP_SECRETS_PORT) || 9090,
+        servicePath: gcpUrl.hostname,
+        port: Number(gcpUrl.port) || 4588,
         projectId: 'test-project',
         sslCreds: grpcJs.credentials.createInsecure(),
       },
@@ -44,32 +48,16 @@ describe.runIf(process.env.GCP_SECRETS_PORT)('secrets e2e with gcp-emulator', ()
   })
 })
 
-function b64url(s: string): string {
-  return Buffer.from(s).toString('base64url')
-}
-
-class FakeTokenCredential {
-  async getToken(_scopes: string | string[], _options?: unknown) {
-    const header = b64url(JSON.stringify({ alg: 'RS256', typ: 'JWT', kid: 'fake' }))
-    const payload = b64url(JSON.stringify({
-      aud: 'https://vault.azure.net',
-      iss: 'fake',
-      sub: 'fake',
-      exp: Math.floor(Date.now() / 1000) + 36000,
-    }))
-    return { token: `${header}.${payload}.fakesig`, expiresOnTimestamp: Date.now() + 3600000 }
-  }
-}
-
-describe.runIf(process.env.AZURE_VAULT_URL)('secrets e2e with azure-keyvault-emulator', () => {
+describe('secrets e2e with floci-az', () => {
   it('should create and retrieve secrets via createSecrets', async () => {
     const { createSecrets } = await import('../src/index.js')
     const config: SecretsConfig = {
       cloud: 'azure',
       config: {
-        vaultUrl: process.env.AZURE_VAULT_URL,
+        vaultUrl: process.env.AZURE_VAULT_URL || getAzureEndpoint(),
         disableChallengeResourceVerification: true,
         credential: new FakeTokenCredential(),
+        allowInsecureConnection: true,
       },
     }
     const strategy = createSecrets(config)

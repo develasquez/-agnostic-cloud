@@ -2,6 +2,7 @@ import { describe, it, expect, beforeAll } from 'vitest'
 import { copyObject, verifyIntegrity } from '../src/index.js'
 import { createStorage } from '@agnostic-cloud/storage'
 import type { StorageStrategy } from '@agnostic-cloud/storage'
+import { getAwsEndpoint, getGcpEndpoint } from '../../test-helpers/src/index.js'
 
 const TEST_BUCKET = 'migration-test-bucket'
 const TEST_KEY = 'migration-data.txt'
@@ -12,9 +13,9 @@ const MINIO_CONFIG = {
   bucket: TEST_BUCKET,
   region: 'us-east-1',
   config: {
-    endpoint: 'http://localhost:9000',
+    endpoint: getAwsEndpoint(),
     region: 'us-east-1',
-    credentials: { accessKeyId: 'minioadmin', secretAccessKey: 'minioadmin' },
+    credentials: { accessKeyId: 'fake', secretAccessKey: 'fake' },
     forcePathStyle: true,
   },
 }
@@ -23,7 +24,7 @@ const GCS_CONFIG = {
   cloud: 'gcp' as const,
   bucket: TEST_BUCKET,
   config: {
-    apiEndpoint: 'http://localhost:4443',
+    apiEndpoint: getGcpEndpoint(),
     projectId: 'test-project',
   },
 }
@@ -35,16 +36,16 @@ describe('cross-cloud migration S3 → GCS', () => {
   beforeAll(async () => {
     const { S3Client, CreateBucketCommand } = await import('@aws-sdk/client-s3')
     const client = new S3Client({
-      endpoint: 'http://localhost:9000',
+      endpoint: getAwsEndpoint(),
       region: 'us-east-1',
-      credentials: { accessKeyId: 'minioadmin', secretAccessKey: 'minioadmin' },
+      credentials: { accessKeyId: 'fake', secretAccessKey: 'fake' },
       forcePathStyle: true,
     })
     try { await client.send(new CreateBucketCommand({ Bucket: TEST_BUCKET })) } catch { }
     client.destroy()
 
     const { Storage } = await import('@google-cloud/storage')
-    const gcsClient = new Storage({ apiEndpoint: 'http://localhost:4443', projectId: 'test-project' })
+    const gcsClient = new Storage({ apiEndpoint: getGcpEndpoint(), projectId: 'test-project' })
     try { await gcsClient.createBucket(TEST_BUCKET) } catch { }
 
     s3 = createStorage(MINIO_CONFIG)

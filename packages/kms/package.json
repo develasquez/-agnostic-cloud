@@ -29,7 +29,8 @@
     "@aws-sdk/client-kms": "^3.1095.0",
     "@azure/identity": "^4.13.1",
     "@azure/keyvault-keys": "^4.10.2",
-    "@google-cloud/kms": "^4.5.0"
+    "@google-cloud/kms": "^4.5.0",
+    "oci-sdk": "^2.137.0"
   },
   "peerDependenciesMeta": {
     "@aws-sdk/client-kms": {
@@ -42,6 +43,9 @@
       "optional": true
     },
     "@google-cloud/kms": {
+      "optional": true
+    },
+    "oci-sdk": {
       "optional": true
     }
   },

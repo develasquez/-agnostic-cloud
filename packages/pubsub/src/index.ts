@@ -5,6 +5,7 @@ import { resolveCloud } from './resolver.js'
 import { SnsStrategy } from './sns.strategy.js'
 import { GcpPubSubStrategy } from './gcp.strategy.js'
 import { AzureServiceBusStrategy } from './azure.strategy.js'
+import { OciPubSubStrategy } from './oci.strategy.js'
 
 export type { PubSubConfig, CloudConfig } from './config.js'
 export type { PubSubStrategy, MessagePayload, PublishResult, Message, MessageHandler, SubscribeOptions, Subscription } from './interface.js'
@@ -14,6 +15,7 @@ const strategyRegistry: Record<string, new (config: PubSubConfig) => PubSubStrat
   aws: SnsStrategy,
   gcp: GcpPubSubStrategy,
   azure: AzureServiceBusStrategy,
+  oci: OciPubSubStrategy,
 }
 
 export function createPubSub(config: PubSubConfig): PubSubStrategy {

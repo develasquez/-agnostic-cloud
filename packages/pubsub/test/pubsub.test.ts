@@ -8,6 +8,7 @@ describe('resolveCloud (pubsub)', () => {
   it('should return aws', () => expect(resolveCloud({ cloud: 'aws' }, 'pubsub')).toBe('aws'))
   it('should return gcp', () => expect(resolveCloud({ cloud: 'gcp' }, 'pubsub')).toBe('gcp'))
   it('should return azure', () => expect(resolveCloud({ cloud: 'azure' }, 'pubsub')).toBe('azure'))
+  it('should return oci', () => expect(resolveCloud({ cloud: 'oci' }, 'pubsub')).toBe('oci'))
   it('should throw InvalidCloudError for invalid cloud', () => expect(() => resolveCloud({ cloud: 'invalid' as any }, 'pubsub')).toThrow(InvalidCloudError))
   it('should throw CloudNotConfiguredError when missing', () => expect(() => resolveCloud({}, 'pubsub')).toThrow(CloudNotConfiguredError))
   it('should read from CLOUD_PROVIDER env var', () => {

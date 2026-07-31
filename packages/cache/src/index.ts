@@ -12,6 +12,7 @@ const strategyRegistry: Record<string, new (config: CacheConfig) => CacheStrateg
   aws: RedisCacheStrategy,
   gcp: RedisCacheStrategy,
   azure: RedisCacheStrategy,
+  oci: RedisCacheStrategy,
 }
 
 export function createCache(config: CacheConfig): CacheStrategy {

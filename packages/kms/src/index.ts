@@ -5,6 +5,7 @@ import { resolveCloud } from './resolver.js'
 import { AwsKmsStrategy } from './aws.strategy.js'
 import { GcpKmsStrategy } from './gcp.strategy.js'
 import { AzureKmsStrategy } from './azure.strategy.js'
+import { OciKmsStrategy } from './oci.strategy.js'
 
 export type { KmsConfig, CloudConfig } from './config.js'
 export type { KmsStrategy, EncryptResult, DecryptResult, CreateKeyOptions, KeyMetadata, EncryptionContext } from './interface.js'
@@ -14,6 +15,7 @@ const strategyRegistry: Record<string, new (config: KmsConfig) => KmsStrategy> =
   aws: AwsKmsStrategy,
   gcp: GcpKmsStrategy,
   azure: AzureKmsStrategy,
+  oci: OciKmsStrategy,
 }
 
 export function createKms(config: KmsConfig): KmsStrategy {

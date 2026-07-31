@@ -8,6 +8,7 @@ describe('resolveCloud (kms)', () => {
   it('should return aws', () => expect(resolveCloud({ cloud: 'aws' }, 'kms')).toBe('aws'))
   it('should return gcp', () => expect(resolveCloud({ cloud: 'gcp' }, 'kms')).toBe('gcp'))
   it('should return azure', () => expect(resolveCloud({ cloud: 'azure' }, 'kms')).toBe('azure'))
+  it('should return oci', () => expect(resolveCloud({ cloud: 'oci' }, 'kms')).toBe('oci'))
   it('should throw InvalidCloudError for invalid cloud', () => expect(() => resolveCloud({ cloud: 'invalid' as any }, 'kms')).toThrow(InvalidCloudError))
   it('should throw CloudNotConfiguredError when missing', () => expect(() => resolveCloud({}, 'kms')).toThrow(CloudNotConfiguredError))
   it('should read from CLOUD_PROVIDER env var', () => {

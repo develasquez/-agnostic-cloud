@@ -18,7 +18,7 @@ export class CloudNotConfiguredError extends CloudError {
 
 export class InvalidCloudError extends CloudError {
   constructor(cloud: string, service: string) {
-    super(`Invalid cloud provider: ${cloud}. Must be 'aws', 'gcp', or 'azure'`, cloud, service, 'init')
+    super(`Invalid cloud provider: ${cloud}. Must be 'aws', 'gcp', 'azure', or 'oci'`, cloud, service, 'init')
   }
 }
 

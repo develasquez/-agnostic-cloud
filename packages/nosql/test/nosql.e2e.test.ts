@@ -1,5 +1,6 @@
 import { describe, it, expect, beforeAll } from 'vitest'
 import type { NoSqlConfig } from '../src/config.js'
+import { getAwsEndpoint, getGcpEndpoint, getAzureEndpoint } from '../../test-helpers/src/index.js'
 
 const COLLECTION = `test-nosql-${Date.now()}`
 const ID = 'test-item'
@@ -7,7 +8,7 @@ const ID = 'test-item'
 async function createTable() {
   const { DynamoDBClient, CreateTableCommand } = await import('@aws-sdk/client-dynamodb')
   const client = new DynamoDBClient({
-    endpoint: 'http://localhost:8000',
+    endpoint: getAwsEndpoint(),
     region: 'us-east-1',
     credentials: { accessKeyId: 'fake', secretAccessKey: 'fake' },
   })
@@ -22,7 +23,7 @@ async function createTable() {
   client.destroy()
 }
 
-describe.runIf(process.env.DYNAMODB_ENDPOINT)('nosql e2e with dynamodb-local', () => {
+describe('nosql e2e with floci-dynamodb', () => {
   beforeAll(async () => {
     await createTable()
   })
@@ -33,7 +34,7 @@ describe.runIf(process.env.DYNAMODB_ENDPOINT)('nosql e2e with dynamodb-local', (
       cloud: 'aws',
       region: 'us-east-1',
       config: {
-        endpoint: 'http://localhost:8000',
+        endpoint: getAwsEndpoint(),
         region: 'us-east-1',
         credentials: { accessKeyId: 'fake', secretAccessKey: 'fake' },
       },
@@ -55,41 +56,45 @@ describe.runIf(process.env.DYNAMODB_ENDPOINT)('nosql e2e with dynamodb-local', (
   })
 })
 
-  describe.runIf(process.env.COSMOSDB_ENDPOINT)('nosql e2e with cosmosdb-emulator', () => {
-    beforeAll(async () => {
-      const { CosmosClient } = await import('@azure/cosmos')
-      const cosmos = new CosmosClient({
-        endpoint: process.env.COSMOSDB_ENDPOINT!,
-        key: process.env.COSMOSDB_KEY || 'C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==',
-      })
-      try { await cosmos.databases.createIfNotExists({ id: 'agnostic-cloud' }) } catch {}
-      cosmos.dispose()
+  describe('nosql e2e with floci-cosmosdb', () => {
+  beforeAll(async () => {
+    const { CosmosClient } = await import('@azure/cosmos')
+    const cosmos = new CosmosClient({
+      endpoint: process.env.COSMOSDB_ENDPOINT || getAzureEndpoint(),
+      key: process.env.COSMOSDB_KEY || 'C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==',
     })
-
-    it('should put, get, and delete via createNoSql (azure)', async () => {
-      const { createNoSql } = await import('../src/index.js')
-      const config: NoSqlConfig = {
-        cloud: 'azure',
-        config: {
-          endpoint: process.env.COSMOSDB_ENDPOINT,
-          key: process.env.COSMOSDB_KEY || 'C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==',
-        },
-      }
-      const db = createNoSql(config)
-      const col = `test-cosmos-${Date.now()}`
-      const id = 'test-item'
-
-      await expect(db.putItem(col, id, { name: 'cosmos', value: 3 })).resolves.toBeUndefined()
-      const item = await db.getItem(col, id)
-      expect(item).not.toBeNull()
-      expect(item?.name).toBe('cosmos')
-
-      await expect(db.deleteItem(col, id)).resolves.toBeUndefined()
-    })
+    try { await cosmos.databases.createIfNotExists({ id: 'agnostic-cloud' }) } catch {}
+    cosmos.dispose()
   })
 
-  describe.runIf(process.env.FIRESTORE_EMULATOR_HOST)('nosql e2e with firestore-emulator', () => {
+  it('should put, get, and delete via createNoSql (azure)', async () => {
+    const { createNoSql } = await import('../src/index.js')
+    const config: NoSqlConfig = {
+      cloud: 'azure',
+      config: {
+        endpoint: process.env.COSMOSDB_ENDPOINT || getAzureEndpoint(),
+        key: process.env.COSMOSDB_KEY || 'C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==',
+      },
+    }
+    const db = createNoSql(config)
+    const col = `test-cosmos-${Date.now()}`
+    const id = 'test-item'
+
+    await expect(db.putItem(col, id, { name: 'cosmos', value: 3 })).resolves.toBeUndefined()
+    const item = await db.getItem(col, id)
+    expect(item).not.toBeNull()
+    expect(item?.name).toBe('cosmos')
+
+    await expect(db.deleteItem(col, id)).resolves.toBeUndefined()
+  })
+})
+
+describe('nosql e2e with floci-firestore', () => {
   it('should put, get, and delete via createNoSql (gcp)', async () => {
+    // Inject firestore emulator host to process env
+    const gcpUrl = new URL(process.env.FIRESTORE_EMULATOR_HOST ? `http://${process.env.FIRESTORE_EMULATOR_HOST}` : getGcpEndpoint())
+    process.env.FIRESTORE_EMULATOR_HOST = gcpUrl.host
+
     const { createNoSql } = await import('../src/index.js')
     const config: NoSqlConfig = {
       cloud: 'gcp',

@@ -15,9 +15,13 @@
     "changeset": "changeset",
     "version": "changeset version",
     "release": "npm run build && changeset publish",
-    "size": "size-limit"
+    "size": "size-limit",
+    "emulators:start": "podman compose up -d && tsx scripts/provision-emulators.ts",
+    "emulators:stop": "podman compose down -v",
+    "emulators:status": "podman compose ps"
   },
   "devDependencies": {
+    "tsx": "^4.16.0",
     "@aws-sdk/client-dynamodb": "^3.1095.0",
     "@aws-sdk/client-kms": "^3.1095.0",
     "@aws-sdk/client-s3": "^3.1095.0",
@@ -46,7 +50,8 @@
     "ioredis": "^5.11.1",
     "size-limit": "^13.0.1",
     "typescript": "^5.5.0",
-    "vitest": "^2.0.0"
+    "vitest": "^2.0.0",
+    "oci-sdk": "^2.137.0"
   },
   "engines": {
     "node": "^22.18.0 || ^24.0.0 || >=26.0.0"

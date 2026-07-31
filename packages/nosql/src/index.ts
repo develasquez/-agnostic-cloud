@@ -5,6 +5,7 @@ import { resolveCloud } from './resolver.js'
 import { DynamoDbStrategy } from './dynamodb.strategy.js'
 import { FirestoreStrategy } from './firestore.strategy.js'
 import { CosmosDbStrategy } from './cosmos.strategy.js'
+import { OciNoSqlStrategy } from './oci.strategy.js'
 
 export type { NoSqlConfig, CloudConfig } from './config.js'
 export type { NoSqlStrategy, Document, QueryFilter, QueryOptions, QueryResult, FilterOperator } from './interface.js'
@@ -14,6 +15,7 @@ const strategyRegistry: Record<string, new (config: NoSqlConfig) => NoSqlStrateg
   aws: DynamoDbStrategy,
   gcp: FirestoreStrategy,
   azure: CosmosDbStrategy,
+  oci: OciNoSqlStrategy,
 }
 
 export function createNoSql(config: NoSqlConfig): NoSqlStrategy {

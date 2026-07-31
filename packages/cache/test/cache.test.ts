@@ -8,6 +8,7 @@ describe('resolveCloud (cache)', () => {
   it('should return aws', () => expect(resolveCloud({ cloud: 'aws' }, 'cache')).toBe('aws'))
   it('should return gcp', () => expect(resolveCloud({ cloud: 'gcp' }, 'cache')).toBe('gcp'))
   it('should return azure', () => expect(resolveCloud({ cloud: 'azure' }, 'cache')).toBe('azure'))
+  it('should return oci', () => expect(resolveCloud({ cloud: 'oci' }, 'cache')).toBe('oci'))
   it('should throw InvalidCloudError for invalid cloud', () => expect(() => resolveCloud({ cloud: 'invalid' as any }, 'cache')).toThrow(InvalidCloudError))
   it('should throw CloudNotConfiguredError when missing', () => expect(() => resolveCloud({}, 'cache')).toThrow(CloudNotConfiguredError))
   it('should read from CLOUD_PROVIDER env var', () => {

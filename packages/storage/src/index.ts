@@ -5,6 +5,7 @@ import { resolveCloud } from './resolver.js'
 import { S3StorageStrategy } from './s3.strategy.js'
 import { GcsStorageStrategy } from './gcs.strategy.js'
 import { AzureBlobStorageStrategy } from './azure-blob.strategy.js'
+import { OciStorageStrategy } from './oci.strategy.js'
 
 export type { StorageConfig, CloudConfig } from './config.js'
 export type { StorageStrategy, PutObjectOptions, PutObjectResult, GetObjectResult, ListObjectsOptions, ListObjectsResult, ObjectSummary } from './interface.js'
@@ -14,6 +15,7 @@ const strategyRegistry: Record<string, new (config: StorageConfig) => StorageStr
   aws: S3StorageStrategy,
   gcp: GcsStorageStrategy,
   azure: AzureBlobStorageStrategy,
+  oci: OciStorageStrategy,
 }
 
 export function createStorage(config: StorageConfig): StorageStrategy {

@@ -15,6 +15,10 @@ describe('resolveCloud', () => {
     expect(resolveCloud({ cloud: 'azure' }, 'storage')).toBe('azure')
   })
 
+  it('should return oci when cloud is oci', () => {
+    expect(resolveCloud({ cloud: 'oci' }, 'storage')).toBe('oci')
+  })
+
   it('should throw InvalidCloudError for invalid cloud value', () => {
     expect(() => resolveCloud({ cloud: 'invalid' as any }, 'storage')).toThrow(InvalidCloudError)
   })

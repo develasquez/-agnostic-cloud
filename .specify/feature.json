@@ -1,7 +1,7 @@
 {
-  "shortName": "cloud-abstraction",
-  "sequenceNumber": 1,
-  "directory": "specs/001-cloud-abstraction",
-  "created": "2026-07-24",
+  "shortName": "oci-support",
+  "sequenceNumber": 4,
+  "directory": "specs/004-oci-support",
+  "created": "2026-07-31",
   "status": "draft"
 }

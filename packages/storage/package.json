@@ -29,7 +29,8 @@
     "@aws-sdk/client-s3": "^3.1095.0",
     "@azure/identity": "^4.13.1",
     "@azure/storage-blob": "^12.32.0",
-    "@google-cloud/storage": "^7.21.0"
+    "@google-cloud/storage": "^7.21.0",
+    "oci-sdk": "^2.137.0"
   },
   "peerDependenciesMeta": {
     "@aws-sdk/client-s3": {
@@ -42,6 +43,9 @@
       "optional": true
     },
     "@google-cloud/storage": {
+      "optional": true
+    },
+    "oci-sdk": {
       "optional": true
     }
   },
