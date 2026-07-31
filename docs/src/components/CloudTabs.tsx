@@ -12,9 +12,10 @@ interface CloudTabsProps {
   aws: CloudTab;
   gcp: CloudTab;
   azure: CloudTab;
+  oci?: CloudTab;
 }
 
-export default function CloudTabs({ aws, gcp, azure }: CloudTabsProps): React.ReactElement {
+export default function CloudTabs({ aws, gcp, azure, oci }: CloudTabsProps): React.ReactElement {
   return (
     <Tabs groupId="cloud-provider">
       <TabItem value="aws" label="AWS" default>
@@ -26,6 +27,11 @@ export default function CloudTabs({ aws, gcp, azure }: CloudTabsProps): React.Re
       <TabItem value="azure" label="Azure">
         <CodeBlock language="typescript">{azure.code}</CodeBlock>
       </TabItem>
+      {oci && (
+        <TabItem value="oci" label="OCI">
+          <CodeBlock language="typescript">{oci.code}</CodeBlock>
+        </TabItem>
+      )}
     </Tabs>
   );
 }

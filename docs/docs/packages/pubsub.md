@@ -24,6 +24,7 @@ npm install @agnostic-cloud/pubsub
 | **AWS** | `@aws-sdk/client-sns`<br/>`@aws-sdk/client-sqs` | `^3.1095.0`<br/>`^3.1095.0` | `npm install @aws-sdk/client-sns @aws-sdk/client-sqs` |
 | **GCP** | `@google-cloud/pubsub` | `^4.11.0` | `npm install @google-cloud/pubsub` |
 | **Azure** | `@azure/service-bus`<br/>`@azure/eventgrid`<br/>`@azure/event-hubs`<br/>`@azure/identity` | `^7.9.5`<br/>`^4.15.0`<br/>`^5.12.2`<br/>`^4.13.1` | `npm install @azure/service-bus @azure/eventgrid @azure/event-hubs @azure/identity` |
+| **OCI** | `oci-sdk` | `^2.97.0` | `npm install oci-sdk` |
 
 ## Factory Function
 
@@ -31,10 +32,14 @@ npm install @agnostic-cloud/pubsub
 import { createPubSub } from '@agnostic-cloud/pubsub'
 
 const pubsub = createPubSub({
-  cloud: 'aws',
-  region: 'us-east-1',
+  cloud: 'oci',          // 'aws' | 'gcp' | 'azure' | 'oci'
+  region: 'us-ashburn-1',
   config: {
-    // cloud-specific options
+    tenancy: process.env.OCI_TENANCY,
+    user: process.env.OCI_USER,
+    fingerprint: process.env.OCI_FINGERPRINT,
+    privateKey: process.env.OCI_PRIVATE_KEY,
+    compartmentId: 'ocid1.compartment.oc1..fake',
   },
 })
 ```
@@ -44,17 +49,25 @@ const pubsub = createPubSub({
 <CloudTabs
   aws={{
     title: 'AWS SNS/SQS',
-    code: `const result = await pubsub.publish('my-topic', { message: 'Hello' })
+    code: `const result = await pubsub.publish('my-topic', { data: 'Hello' })
 console.log(result.messageId)`,
   }}
   gcp={{
     title: 'GCP Pub/Sub',
-    code: `const result = await pubsub.publish('my-topic', { message: 'Hello' })
+    code: `const result = await pubsub.publish('my-topic', { data: 'Hello' })
 console.log(result.messageId)`,
   }}
   azure={{
-    title: 'Azure Event Grid',
-    code: `const result = await pubsub.publish('my-topic', { message: 'Hello' })
+    title: 'Azure Event Grid / Service Bus',
+    code: `const result = await pubsub.publish('my-topic', { data: 'Hello' })
+console.log(result.messageId)`,
+  }}
+  oci={{
+    title: 'OCI Queue',
+    code: `const result = await pubsub.publish('test-queue-e2e', {
+  data: 'Hello',
+  attributes: { source: 'documentation' }
+})
 console.log(result.messageId)`,
   }}
 />
@@ -63,7 +76,7 @@ console.log(result.messageId)`,
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| `cloud` | `'aws' \| 'gcp' \| 'azure'` | yes | Cloud provider |
+| `cloud` | `'aws' \| 'gcp' \| 'azure' \| 'oci'` | yes | Cloud provider |
 | `region` | string | no | Provider region |
 | `config` | `Record<string, any>` | no | Passed verbatim to provider SDK |
 

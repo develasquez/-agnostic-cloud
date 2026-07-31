@@ -8,22 +8,22 @@ export class OciNoSqlStrategy implements NoSqlStrategy {
   }
 
   async putItem(_collection: string, _id: string, _item: Document): Promise<void> {
-    throw new NotImplementedError('NoSQL is not supported on OCI strategy')
+    throw new NotImplementedError('oci', 'nosql', 'putItem')
   }
 
   async getItem(_collection: string, _id: string): Promise<Document | null> {
-    throw new NotImplementedError('NoSQL is not supported on OCI strategy')
+    throw new NotImplementedError('oci', 'nosql', 'getItem')
   }
 
   async updateItem(_collection: string, _id: string, _changes: Partial<Document>): Promise<Document> {
-    throw new NotImplementedError('NoSQL is not supported on OCI strategy')
+    throw new NotImplementedError('oci', 'nosql', 'updateItem')
   }
 
   async deleteItem(_collection: string, _id: string): Promise<void> {
-    throw new NotImplementedError('NoSQL is not supported on OCI strategy')
+    throw new NotImplementedError('oci', 'nosql', 'deleteItem')
   }
 
   async query(_collection: string, _filter: QueryFilter, _options?: QueryOptions): Promise<QueryResult> {
-    throw new NotImplementedError('NoSQL is not supported on OCI strategy')
+    throw new NotImplementedError('oci', 'nosql', 'query')
   }
 }

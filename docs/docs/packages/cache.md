@@ -21,7 +21,7 @@ npm install @agnostic-cloud/cache
 
 | Cloud Provider | Required SDK Package | Current / Tested Version | Installation Command |
 |---|---|---|---|
-| **AWS / GCP / Azure** | `ioredis` | `^5.11.1` | `npm install ioredis` |
+| **AWS / GCP / Azure / OCI** | `ioredis` | `^5.11.1` | `npm install ioredis` |
 
 ## Factory Function
 
@@ -29,7 +29,7 @@ npm install @agnostic-cloud/cache
 import { createCache } from '@agnostic-cloud/cache'
 
 const cache = createCache({
-  cloud: 'aws',
+  cloud: 'oci',          // 'aws' | 'gcp' | 'azure' | 'oci'
   config: {
     url: 'redis://localhost:6379',
   },
@@ -44,7 +44,7 @@ const cache = createCache({
     code: `await cache.set('greeting', 'Hello World')
 const value = await cache.get('greeting')
 console.log(value) // 'Hello World'
-await cache.delete('greeting')`,
+await cache.del('greeting')`,
   }}
   gcp={{
     title: 'GCP Memorystore',
@@ -58,13 +58,19 @@ console.log(value)`,
 const value = await cache.get('greeting')
 console.log(value)`,
   }}
+  oci={{
+    title: 'OCI Cache for Redis',
+    code: `await cache.set('greeting', 'Hello World')
+const value = await cache.get('greeting')
+console.log(value)`,
+  }}
 />
 
 ## Configuration
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| `cloud` | `'aws' \| 'gcp' \| 'azure'` | yes | Cloud provider |
+| `cloud` | `'aws' \| 'gcp' \| 'azure' \| 'oci'` | yes | Cloud provider |
 | `config` | `Record<string, any>` | no | Passed verbatim (Redis URL, etc.) |
 
 ## API Reference

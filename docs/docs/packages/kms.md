@@ -24,6 +24,7 @@ npm install @agnostic-cloud/kms
 | **AWS** | `@aws-sdk/client-kms` | `^3.1095.0` | `npm install @aws-sdk/client-kms` |
 | **GCP** | `@google-cloud/kms` | `^4.5.0` | `npm install @google-cloud/kms` |
 | **Azure** | `@azure/keyvault-keys`<br/>`@azure/identity` | `^4.10.2`<br/>`^4.13.1` | `npm install @azure/keyvault-keys @azure/identity` |
+| **OCI** | `oci-sdk` | `^2.97.0` | `npm install oci-sdk` |
 
 ## Factory Function
 
@@ -31,10 +32,13 @@ npm install @agnostic-cloud/kms
 import { createKms } from '@agnostic-cloud/kms'
 
 const kms = createKms({
-  cloud: 'aws',
-  region: 'us-east-1',
+  cloud: 'oci',          // 'aws' | 'gcp' | 'azure' | 'oci'
+  region: 'us-ashburn-1',
   config: {
-    // cloud-specific options
+    tenancy: process.env.OCI_TENANCY,
+    user: process.env.OCI_USER,
+    fingerprint: process.env.OCI_FINGERPRINT,
+    privateKey: process.env.OCI_PRIVATE_KEY,
   },
 })
 ```
@@ -63,13 +67,20 @@ const encrypted = await kms.encrypt(key.id, Buffer.from('secret data'))
 const decrypted = await kms.decrypt(key.id, encrypted.ciphertext)
 console.log(decrypted.plaintext.toString())`,
   }}
+  oci={{
+    title: 'OCI Key Management',
+    code: `const key = await kms.createKey('my-key')
+const encrypted = await kms.encrypt(key.id, Buffer.from('secret data'))
+const decrypted = await kms.decrypt(key.id, encrypted.ciphertext)
+console.log(decrypted.plaintext.toString())`,
+  }}
 />
 
 ## Configuration
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| `cloud` | `'aws' \| 'gcp' \| 'azure'` | yes | Cloud provider |
+| `cloud` | `'aws' \| 'gcp' \| 'azure' \| 'oci'` | yes | Cloud provider |
 | `region` | string | no | Provider region |
 | `config` | `Record<string, any>` | no | Passed verbatim to provider SDK |
 

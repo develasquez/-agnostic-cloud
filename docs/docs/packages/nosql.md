@@ -24,6 +24,7 @@ npm install @agnostic-cloud/nosql
 | **AWS** | `@aws-sdk/client-dynamodb`<br/>`@aws-sdk/util-dynamodb` | `^3.1095.0`<br/>`^3.996.7` | `npm install @aws-sdk/client-dynamodb @aws-sdk/util-dynamodb` |
 | **GCP** | `@google-cloud/firestore` | `^7.11.6` | `npm install @google-cloud/firestore` |
 | **Azure** | `@azure/cosmos`<br/>`@azure/identity` | `^4.9.3`<br/>`^4.13.1` | `npm install @azure/cosmos @azure/identity` |
+| **OCI** | *None (Unsupported)* | N/A | N/A |
 
 ## Factory Function
 
@@ -60,13 +61,22 @@ console.log(user)`,
 const user = await nosql.getItem('users', 'user-1')
 console.log(user)`,
   }}
+  oci={{
+    title: 'OCI NoSQL (Unsupported)',
+    code: `// Note: OCI is registered, but all database operations will throw NotImplementedError
+try {
+  await nosql.getItem('users', 'user-1')
+} catch (err) {
+  // Handles NotImplementedError
+}`,
+  }}
 />
 
 ## Configuration
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| `cloud` | `'aws' \| 'gcp' \| 'azure'` | yes | Cloud provider |
+| `cloud` | `'aws' \| 'gcp' \| 'azure' \| 'oci'` | yes | Cloud provider |
 | `region` | string | no | Provider region |
 | `config` | `Record<string, any>` | no | Passed verbatim to provider SDK |
 
