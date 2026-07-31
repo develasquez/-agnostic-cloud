@@ -1,6 +1,6 @@
 {
   "name": "@agnostic-cloud/cache",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Unified cache interface for ElastiCache Redis, Memorystore, and Azure Cache for Redis",
   "type": "module",
   "main": "./dist/index.cjs",

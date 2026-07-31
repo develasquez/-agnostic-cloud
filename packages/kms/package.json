@@ -1,6 +1,6 @@
 {
   "name": "@agnostic-cloud/kms",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Unified key management interface for AWS KMS, GCP Cloud KMS, and Azure Key Vault Keys",
   "type": "module",
   "main": "./dist/index.cjs",

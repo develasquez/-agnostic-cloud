@@ -1,6 +1,6 @@
 {
   "name": "@agnostic-cloud/nosql",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Unified NoSQL document database interface for DynamoDB, Firestore, and Cosmos DB",
   "type": "module",
   "main": "./dist/index.cjs",

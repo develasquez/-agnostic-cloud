@@ -1,6 +1,6 @@
 {
   "name": "@agnostic-cloud/pubsub",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Unified pub/sub interface for AWS SNS/SQS, GCP Pub/Sub, and Azure Event Grid/Event Hubs/Service Bus",
   "type": "module",
   "main": "./dist/index.cjs",
