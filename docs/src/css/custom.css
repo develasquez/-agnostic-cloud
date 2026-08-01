@@ -111,6 +111,7 @@
 .cloud-badge--aws { background: #ff9900; color: #000; }
 .cloud-badge--gcp { background: #4285f4; color: #fff; }
 .cloud-badge--azure { background: #0078d4; color: #fff; }
+.cloud-badge--oci { background: #f35a24; color: #fff; }
 
 .card {
   border: 1px solid var(--ifm-color-emphasis-300);

@@ -1,11 +1,11 @@
 import React from 'react';
 
 const PACKAGES = [
-  { name: '@agnostic-cloud/storage', description: 'Object storage (S3, GCS, Azure Blob)', clouds: ['AWS', 'GCP', 'Azure'] },
+  { name: '@agnostic-cloud/storage', description: 'Object storage (S3, GCS, Azure Blob, OCI Storage)', clouds: ['AWS', 'GCP', 'Azure', 'OCI'] },
   { name: '@agnostic-cloud/secrets', description: 'Secrets management', clouds: ['AWS', 'GCP', 'Azure'] },
-  { name: '@agnostic-cloud/cache', description: 'In-memory cache (Redis)', clouds: ['AWS', 'GCP', 'Azure'] },
-  { name: '@agnostic-cloud/kms', description: 'Key management & encryption', clouds: ['AWS', 'GCP', 'Azure'] },
-  { name: '@agnostic-cloud/pubsub', description: 'Pub/Sub messaging', clouds: ['AWS', 'GCP', 'Azure'] },
+  { name: '@agnostic-cloud/cache', description: 'In-memory cache (Redis, OCI Cache)', clouds: ['AWS', 'GCP', 'Azure', 'OCI'] },
+  { name: '@agnostic-cloud/kms', description: 'Key management & encryption', clouds: ['AWS', 'GCP', 'Azure', 'OCI'] },
+  { name: '@agnostic-cloud/pubsub', description: 'Pub/Sub messaging & queues', clouds: ['AWS', 'GCP', 'Azure', 'OCI'] },
   { name: '@agnostic-cloud/nosql', description: 'NoSQL document databases', clouds: ['AWS', 'GCP', 'Azure'] },
   { name: '@agnostic-cloud/migrate', description: 'Cross-cloud migration utilities', clouds: ['AWS', 'GCP', 'Azure'] },
 ];
