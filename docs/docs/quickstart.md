@@ -38,6 +38,6 @@ console.log(result.body.toString()) // 'Hello World!'
 
 ## 4. Switch Clouds
 
-Change `cloud: 'aws'` to `cloud: 'gcp'` — the same code works with Google Cloud Storage.
+Change `cloud: 'aws'` to `cloud: 'gcp'`, `cloud: 'azure'`, or `cloud: 'oci'` — the same code works with Google Cloud Storage, Azure Blob Storage, and OCI Object Storage.
 
 [See all packages →](/-agnostic-cloud/docs/next/packages/storage)

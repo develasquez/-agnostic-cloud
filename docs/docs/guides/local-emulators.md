@@ -5,51 +5,53 @@ sidebar_label: Local Emulators
 
 # Local Emulators
 
-Run the full test suite locally without cloud costs using Docker Compose.
+Run the full test suite locally without cloud costs using Podman or Docker Compose with our unified **Floci** emulation routing layer.
 
 ## Prerequisites
 
-- Docker Compose (or Podman — see note below)
-- Node.js >= 18
+- **Podman Desktop** (or Docker Desktop) on macOS / Linux.
+- **Node.js** >= 20.x
 
 ## Start Emulators
 
+We provide an orchestration script that starts our local containers and pre-provisions standard resources (such as GCP Keyrings, OCI Queues, and Azure Containers):
+
 ```bash
-docker compose up -d
+# Starts the compose containers and runs provisioning scripts
+npm run emulators:start
 ```
 
-This starts 12+ emulator services covering all 7 packages across AWS, GCP, and Azure.
+*To stop the emulators and clean up volumes, run:*
+```bash
+npm run emulators:stop
+```
 
-## Environment Variables
+## Unified Floci Port Mapping & Fallbacks
 
-| Package | Emulator | Port | Env Vars |
-|---------|----------|------|----------|
-| storage | MinIO (S3) | 9000 | `AWS_ENDPOINT`, `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY` |
-| storage | fake-gcs-server | 4443 | `STORAGE_EMULATOR_HOST` |
-| storage | Azurite | 10000 | `AZURE_STORAGE_CONNECTION_STRING` |
-| secrets | Nimbus (AWS) | 4566 | `AWS_ENDPOINT` |
-| secrets | GCP Secret Manager | 9090 | `CLOUD_SECRETS_ENDPOINT` |
-| secrets | Azurite | 10000 | `AZURE_KEY_VAULT_URL` |
-| cache | Redis | 6379 | `REDIS_URL` |
-| kms | local-kms (AWS) | 8099 | `AWS_ENDPOINT` |
-| kms | GCP KMS (REST) | 8088 | `GCP_KMS_REST_ENDPOINT` |
-| kms | Azure Key Vault | 4997 | `AZURE_KEY_VAULT_URL` |
-| pubsub | Nimbus (SNS/SQS) | 4566 | `AWS_ENDPOINT` |
-| pubsub | GCP Pub/Sub | 8085 | `PUBSUB_EMULATOR_HOST` |
-| nosql | DynamoDB Local | 8000 | `AWS_ENDPOINT` |
-| nosql | Firestore | 8086 | `FIRESTORE_EMULATOR_HOST` |
-| nosql | CosmosDB vNext | 8081 | `COSMOS_ENDPOINT` |
+To ensure absolute simplicity, our local emulation environment consolidates ports through unified endpoints (*Floci*):
 
-## Run Tests
+| Cloud Provider | Floci Port | Unified Local Endpoint | Services Emulated |
+| :--- | :---: | :--- | :--- |
+| **AWS** | `4566` | `http://localhost:4566` | S3, Secrets Manager, KMS, SNS, SQS, DynamoDB |
+| **GCP** | `4588` | `http://localhost:4588` | Google Cloud Storage, Secret Manager, Cloud KMS, Firestore, Pub/Sub |
+| **Azure** | `4577` | `http://localhost:4577` | Azure Blob, Key Vault Secrets, CosmosDB |
+| **OCI** | `4599` | `http://localhost:4599` | OCI Object Storage, OCI Vault & KMS, OCI Queue |
+| **Cache** | `6379` | `localhost:6379` | Redis Cache |
+
+## Running Tests
+
+Due to virtualized CPU-throttling inside macOS container runtimes (such as Podman or Docker Mac), running tests in parallel can lead to handshake timeouts. Always execute the test suite sequentially for maximum stability:
 
 ```bash
-# All e2e tests
-npm test
-
-# Specific package
-npm run test -w packages/storage
+# Execute all package unit & E2E tests sequentially
+npx vitest run --pool=forks --maxWorkers=1 --minWorkers=1 --test-timeout=30000
 ```
 
 ## Troubleshooting
 
-See the [docker-compose.yml](https://github.com/agnostic-cloud/-agnostic-cloud/blob/main/docker-compose.yml) for exact service configurations.
+- **Container Status**: Check if all emulators are healthy:
+  ```bash
+  npm run emulators:status
+  ```
+- **Port Conflicts**: Ensure you do not have native services (like Redis on port `6379`) running locally on your host machine before starting the emulators.
+- **Reset State**: If you encounter state issues, reset the container volumes with `npm run emulators:stop` and restart them.

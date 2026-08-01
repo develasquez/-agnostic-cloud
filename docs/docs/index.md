@@ -11,6 +11,12 @@ import ArchitectureDiagram from '@site/src/components/ArchitectureDiagram';
 
 Welcome to the Agnostic Cloud documentation. Browse the packages below or use the sidebar to navigate.
 
+## Architecture
+
+Our unified interface translates standard abstract calls into native cloud API operations seamlessly:
+
+<ArchitectureDiagram />
+
 ## Packages
 
 <PackageGrid />
